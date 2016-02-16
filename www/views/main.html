@@ -1,0 +1,145 @@
+<!--DropDown list-->
+<div ng-controller="MainCtrl" >
+  <!--TOP TILE-->
+  <section id="topTile"  data-ng-if="vehicleList[0] != undefined">
+
+
+    <div class="row">
+      <!--DROPDOWN-->
+      <div class="col-xs-12">
+        <div class="dropdown">
+          <button class="btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; margin-left:5%;" >
+            <span>{{currentInDropdown}}</span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 90%; margin-left:5%;">
+            <!--ng-repeat hérna-->
+            <li ng-repeat="vehicle in vehicleList" data-ng-model="currentVehicle"><a href="" data-ng-click="dropdownChange(vehicle.carID,$index)">{{vehicle.carLicence}} - {{vehicle.vehicleType}} {{vehicle.vehicleSubType}}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+
+        <!--INFO-->
+        <div class="col-xs-5 col-md-3 col-lg-6 text-center">
+          <div data-radial-indicator="indicatorOption" data-radial-indicator-model="indicatorValue" data-radial-indicator="indicatorOption" data-radial-indicator-id="indicator1" style="padding:3rem;paddin-bottom:0;"></div>
+        </div>
+
+        <!--TEXT-->
+        <div class="col-xs-7 col-md-9 col-lg-6" style="color:#0066b3">
+          <div class="row" style="margin-top:2rem;">
+            <div class="col-xs-9" ><i class="glyphicon glyphicon-dashboard"></i>&nbsp Eknir KM</div>
+            <div class="col-xs-3" >{{currentVehicle.kmDriven}}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-9" ><i class="glyphicon glyphicon-road"></i>&nbsp Fjöldi ferða</div>
+            <div class="col-xs-3" >{{currentVehicle.tripCount}}</div>
+          </div>
+          <div class="row" data-ng-if="currentVehicle.harchAccelCount > 0" >
+            <div class="col-xs-9" ><i class="glyphicon glyphicon-exclamation-sign" style="color: #d9534f"></i>&nbsp Snögg hröðun</div>
+            <div class="col-xs-3" style="color: #d9534f">{{currentVehicle.harchAccelCount}}</div>
+          </div>
+          <div class="row" data-ng-if="currentVehicle.harchBrakingCount > 0">
+            <div class="col-xs-9" ><i class="glyphicon glyphicon-exclamation-sign" style="color: #d9534f"></i>&nbsp Snögg hemlun</div>
+            <div class="col-xs-3" style="color: #d9534f">{{currentVehicle.harchBrakingCount}}</div>
+          </div>
+          <div class="row" data-ng-if="currentVehicle.idleCount > 0">
+            <div class="col-xs-9" ><i class="glyphicon glyphicon-exclamation-sign" style="color: #d9534f"></i>&nbsp Lausagangur</div>
+            <div class="col-xs-3" style="color: #d9534f">{{currentVehicle.idleCount}}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--SKOÐA FERÐIR BUTTON-->
+    <!--ng-href="#/trips/{{currentCarLicence}}"-->
+    <a href="#/trips/{{currentCarLicence}}">
+    <button id="tripButton" class="btn btn-danger">
+      <b>Skoða ferðir</b>&nbsp&nbsp
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    </a>
+
+  </section>
+
+  <!--NO VEHICLE DATA WARNING-->
+  <div ng-if="noVehicleData" class="noVehicleWarning">Engar upplýsingar fundust fyrir þetta faratæki</div>
+
+  <!--USER HAS NO VEHICLES WARNING-->
+  <div data-ng-if="noVehicles == true" class="noVehicleWarning">Það eru engir skráðir bílar á þig</div>
+
+
+  <!--MAP SECTION-->
+  <section style=" width: 100%;">
+    <section style=" width: 100%;">
+    <!--<iframe src="{{mapUrl}}" style="width: 100%; height: auto;" id="mapSection"></iframe>-->
+    <!--<iframe style="width: 100%; height: auto;" id="mapSection"></iframe>-->
+    <iframe src="http://map.is/dvergur/" style="width: 100%; height: 600px;" id="mapSection" name="mapSection" ></iframe>
+
+    
+
+
+
+
+      <div class="row text-center" style="margin-left:0; border-bottom:solid 1px #0066b3;">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 1rem;"><img src="images/bluestop.png"> Bifreið stop</div>
+            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 1rem;"><img src="images/blue.png"> Bifreið á ferð</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 1rem;"><img src="images/yellow.png"> Frávik</div>
+            <div class="col-md-6 col-sm-6 col-xs-6" style="padding: 1rem;"><img src="images/red.png"> Of hraður akstur</div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--<div class="row text-center" style="margin:0;">
+          <div class="col-md-3" style="padding:2rem;"><img src="images/bluestop.png"> Bifreið stop</div>
+          <div class="col-md-3" style="padding:2rem;"><img src="images/blue.png"> Bifreið á ferð</div>
+          <div class="col-md-3" style="padding:2rem;"><img src="images/yellow.png"> Gróf hemlun</div>
+          <div class="col-md-3" style="padding:2rem;"><img src="images/red.png"> Gróf hröðun</div>
+      </div>-->
+    </section>
+
+
+
+
+
+  <map center="41,-87" zoom="3"></map>
+  <!--MARKETING-->
+  <section data-ng-if="vehicleList[0] != undefined">
+    <div class="marketing">
+      <div class="marketingItem">
+        <h4>AT Þjónustubók</h4>
+        <p>
+          <em>Þjónustubókin er kerfi sem heldur utan um allt viðhald ökutækisins og minnir á að því sé sinnt tímanlega. Þú stillir einu sinni og kerfið sér um rest.</em>
+          <a href="https://www.at.is/vorur/thjonustubok/">sjá nánar</a>
+        </p>
+      </div>
+
+      <div class="marketingItem">
+        <h4>AT Rauntími</h4>
+        <p>
+          <em>Rauntímakortið sýnir staðsetningu allra ökutækjanna á kortagrunni Google Maps. Staðsetning ökutækjanna uppfærist sjálfkrafa á nokkurra sekúndna fresti, auk þess að sýna stefnu og hraða.</em>
+          <a href="https://www.at.is/vorur/thjonustubok/">sjá nánar</a>
+        </p>
+      </div>
+
+      <div class="marketingItem">
+        <h4>AT Bílaleiga</h4>
+        <p>
+          <em>Hafðu yfirlit yfir öll ökutækin á einum stað í einföldu og þægilegu viðmóti. Hnitmiðaðar upplýsingar sem spara tíma og hjálpa þínum rekstri. Fáðu upplýsingar í rauntíma, hvort sem á vefsíðu eða í vefgátt Arctic Track sem hægt er að tengja við upplýsingakerfi eins og SAP, Mircosoft NAV og fleiri.</em>
+          <a href="https://www.at.is/vorur/thjonustubok/">sjá nánar</a>
+        </p>
+      </div>
+      </div>
+   </section>
+</section>
+  <div ng-include="'views/footer.html'"></div>
+</div>

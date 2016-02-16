@@ -1,0 +1,35 @@
+<div class="col-xs-12" ng-init="getAllBookings()">
+
+  <div class="dropdown">
+    <button class="btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; margin-left:5%;" >
+      <span>{{currentInDropdown}}</span>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 90%; margin-left:5%;">
+      <!--ng-repeat hérna-->
+      <li ng-repeat="vehicle in vehicleList" data-ng-model="currentVehicle"><a href="" data-ng-click="dropdownChange(vehicle.carID,$index)">{{vehicle.carLicence}} - {{vehicle.vehicleType}} {{vehicle.vehicleSubType}}</a></li>
+    </ul>
+  </div>
+
+</br>
+  <div class="list-group" >
+    <button type="button" class="list-group-item" style="width: 90%; margin-left:5%;" ng-click="assignToVehicle()">Skrá á bíl</button>
+    </br>
+    <button type="button" class="list-group-item" style="width: 90%; margin-left:5%;" ng-click="unassignFromVehicle()">Afskrá af bíl</button>
+
+    <br/>
+    <hr/>
+    <h4 class="text-center" ng-show="userBookings.length > 0"> <em>Skráningar í gildi</em></h4>
+      <ul class="text-center" style="padding-left: 0;">
+        <li class="list-group-item" ng-repeat="item in userBookings" >
+          <span ><i class="glyphicon glyphicon-ok" style="color: limegreen;"></i></span>&nbsp &nbsp
+          <b>{{item.carLicence}}</b> - {{item.bookedFrom | date:'dd-MM-yyyy HH:mm'}}
+        </li>
+      </ul>
+
+  </div>
+  <div class="alert alert-danger searchclass text-center" ng-class="{'active':disp === true}">{{errorMessage}}</div>
+  <div class="alert alert-success searchclass text-center" ng-class="{'active':dispSuccess === true}">{{successMessage}}</div>
+
+
+</div>

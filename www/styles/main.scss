@@ -1,0 +1,316 @@
+// bower:scss
+// endbower
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+/* Space out content a bit */
+body {
+  padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+/*.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}*/
+
+
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+
+  /* Make the masthead heading the same height as the navigation */
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+  }
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+
+  .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+
+  p + h4 {
+    margin-top: 28px;
+  }
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+.row{
+  margin-right:0;
+}
+
+
+
+
+/*NAVIGATION BAR*/
+$bgDefault      : #fff;
+$bgHighlight    : #fff;
+$colDefault     : #0066b3;
+$colHighlight   : #0066b3;
+$ATDarkBlue     : #0066b3;
+.navbar{
+  margin-bottom:0;
+  border-radius: 0;
+}
+.navbar-default {
+  border: solid 1px $ATDarkBlue;
+
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight; }}
+  .navbar-text {
+    color: $colDefault; }
+  .navbar-nav {
+    > li {
+      > a {
+        color: $colDefault;
+        &:hover,  &:focus {
+          color: $colHighlight; }}}
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}
+    > .open {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+  .navbar-toggle {
+    border-color: $bgDefault;
+    &:hover, &:focus {
+      background-color: $bgHighlight; }
+    .icon-bar {
+      background-color: $colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault; }
+  .navbar-link {
+    color: $colDefault;
+    &:hover {
+      color: $colHighlight; }}}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu {
+    > li > a {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    > .active {
+      > a, > a:hover, > a:focus, {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+}
+
+#topTile{
+  border: solid 1px $ATDarkBlue;
+  border-top: white;
+  border-bottom: white;
+  background-color: $bgDefault;
+  height:100%;
+}
+
+#topTile > .row {
+  margin: 0;
+  max-width: 100%;
+}
+
+
+
+/*DROPDOWN*/
+
+$ddMain    : #fff;
+$ddSecond    :#fff;
+$ddBorder    : #0066b3;
+
+.nav-tabs a {
+  color: $ddMain;
+}
+.nav-tabs a:hover {
+  color: $ddMain;
+}
+.nav-tabs {
+  border-bottom: none;
+}
+.nav-tabs .dropdown-menu {
+  margin: -1px 0 0;
+  z-index: 999;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-right-radius: 4px;
+}
+.nav-tabs > li > a {
+  position: relative;
+  z-index: 1000;
+}
+.nav-tabs > li > a {
+  &:hover, &:focus {
+    background-color: $ddSecond; }
+}
+.nav-tabs > li.dropdown.open > a {
+
+  background: $ddMain;
+}
+
+/*.dropdown{
+  padding-left:2rem;
+}*/
+
+.dropdown > button{
+  border-radius:0;
+  background-color:$ddMain;
+}
+
+.dropdown-menu {
+  background-color: $ddMain;
+}
+
+
+#dropdownMenu1{
+  margin-top:2rem;
+  border-color: $ATDarkBlue;
+  &:hover, &:focus {
+    background-color: $ddSecond;
+  }
+}
+
+#dropdownMenu1 > li > a{
+  &:hover, &:focus {
+    background-color: $ddSecond; }
+}
+
+.dropdown-menu > ul {
+  border-radius:0;
+
+}
+
+
+
+.noVehicleWarning{
+  height: 10rem;
+  width: 80%;
+  background: #F44336;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: oblique;
+  color: #FFF;
+  text-align: center;
+  margin-left:10%;
+  margin-top: 4rem;
+  line-height: 90px;
+
+  -webkit-box-shadow: 10px 10px 20px -2px rgba(0,0,0,0.74);
+  -moz-box-shadow: 10px 10px 20px -2px rgba(0,0,0,0.74);
+  box-shadow: 10px 10px 20px -2px rgba(0,0,0,0.74);
+}
+
+
+/*MARKETING STARTS*/
+.marketing{
+  position: inherit;
+}
+
+.marketingItem{
+  padding: 2rem;
+  margin: 2rem;
+  background-color: white;
+  border-bottom: solid 2px $ATDarkBlue;
+
+
+  &:hover, &:focus {
+    color:white;
+    background-color: lightgray;
+    border-color: $ddSecond;
+  }
+}
+
+/*MARKETING ENDS*/
+
+
+#tripButton{
+  border-radius:0;
+  color:white;
+  background-color:$ATDarkBlue;
+  border-color:$ATDarkBlue;
+  height: 4rem;
+  margin-top:-2rem;
+  margin-left:50%;
+  z-index:2;
+  float:right;
+  position: absolute;
+  width: 40%;
+  -webkit-box-shadow: 10px 10px 20px -2px rgba(0,0,0,0.74);
+  -moz-box-shadow: 10px 10px 20px -2px rgba(0,0,0,0.74);
+  box-shadow: 10px 10px 20px -2px rgba(0,0,0,0.74);
+}
+
+/*TRIPS START*/
+
+.greyOut{
+  background-color: #d3d3d3;
+}
+
+.tripRow{
+  border-top: solid 1px $ATDarkBlue;
+}
+
+#tripRow{
+  border-top: solid 1px $ATDarkBlue;
+  padding-top: 0.7em;
+  padding-bottom: 0.5em;
+}
+
+/*TRIPS END*/
