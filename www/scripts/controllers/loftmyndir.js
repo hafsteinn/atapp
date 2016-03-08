@@ -35,7 +35,7 @@ var iconStyle = function(f) {
         anchor: [0.5, 0.5],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: 'http://m.at.is/images/' + f.getProperties().icon + '.png',
+        src: 'assets/img/markers/blue_pin.png',
         rotation: f.getProperties().course * Math.PI / 180
       })),
       text: new ol.style.Text({
@@ -67,7 +67,7 @@ var iconStyleH = function(f) {
         anchor: [0.5, 0.5],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: 'http://m.at.is/images/0.png',
+        src: 'assets/img/markers/blue_pin.png',
         rotation: f.getProperties().course * Math.PI / 180
       })),
       text: new ol.style.Text({
