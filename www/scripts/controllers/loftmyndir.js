@@ -35,7 +35,7 @@ var iconStyle = function(f) {
         anchor: [0.5, 0.5],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: 'assets/img/markers/blue_pin.png',
+        src: 'http://images.sagasystem.is/images/mobile/' + f.getProperties().icon + '.png',
         rotation: f.getProperties().course * Math.PI / 180
       })),
       text: new ol.style.Text({
@@ -59,7 +59,7 @@ var iconStyle = function(f) {
 }
 
 
-var iconStyleH = function(f) {
+/*var iconStyleH = function(f) {
 
   return [
     new ol.style.Style({
@@ -67,7 +67,7 @@ var iconStyleH = function(f) {
         anchor: [0.5, 0.5],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: 'assets/img/markers/blue_pin.png',
+        src: 'http://images.sagasystem.is/images/mobile/blue.png',
         rotation: f.getProperties().course * Math.PI / 180
       })),
       text: new ol.style.Text({
@@ -88,7 +88,7 @@ var iconStyleH = function(f) {
       })
     })
   ]
-}
+}*/
 
 
 var geoJSONSrc = new ol.source.GeoJSON({
