@@ -1,5 +1,5 @@
 <!--DropDown list-->
-<div ng-controller="MainCtrl" >
+<div >
   <!--TOP TILE-->
   <section id="topTile"  data-ng-if="vehicleList[0] != undefined">
 
@@ -14,7 +14,9 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 90%; margin-left:5%;">
             <!--ng-repeat hérna-->
-            <li ng-repeat="vehicle in vehicleList" data-ng-model="currentVehicle"><a href="" data-ng-click="dropdownChange(vehicle.carID,$index)">{{vehicle.carLicence}} - {{vehicle.vehicleType}} {{vehicle.vehicleSubType}}</a></li>
+            <li ng-repeat="vehicle in vehicleList" data-ng-model="currentVehicle" >
+              <a data-toggle="collapse" data-target=".navbar-collapse.in" href="#one" data-ng-click="dropdownChange(vehicle.carID,$index);$this.close();">{{vehicle.carLicence}} - {{vehicle.vehicleType}} {{vehicle.vehicleSubType}}</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -76,7 +78,8 @@
     <section style=" width: 100%;">
     <!--<iframe src="{{mapUrl}}" style="width: 100%; height: auto;" id="mapSection"></iframe>-->
     <!--<iframe style="width: 100%; height: auto;" id="mapSection"></iframe>-->
-    <iframe src="http://map.is/dvergur/" style="width: 100%; height: 600px;" id="mapSection" name="mapSection" ></iframe>
+    <div id="primaryMap" style="width:100%"></div>
+   <!--  <iframe src="http://map.is/dvergur/" style="width: 100%; height: 600px;" id="mapSection" name="mapSection" ></iframe> -->
 
     
 

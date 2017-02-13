@@ -13,9 +13,22 @@ angular.module('atApp')
 
       $scope.authentication = $rootScope.globals.currentUser;
 
+/*    var cw = $('#mapSection').width();
+    $('#mapSection').css({'height':(cw / 1.5)+'px'});*/
 
-    var cw = $('#mapSection').width();
-    $('#mapSection').css({'height':(cw / 1.5)+'px'});
+    var map = new ol.Map({
+      target: 'primaryMap',
+      controlls: [],
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      view: new ol.View({
+        center: ol.proj.transform([-19.507084,64.776466],'EPSG:4326', 'EPSG:3857'),
+        zoom: 6
+      })
+    });
 
     $scope.indicatorOption = {
       interpolate: false,
@@ -33,11 +46,11 @@ angular.module('atApp')
     };
 
       //Wait for the iframe to load before posting to it
-      var myIframe = document.getElementById('mapSection');
-      myIframe.onload = function() {
+      /*var myIframe = document.getElementById('mapSection');
+      myIframe.onload = function() {*/
 
 
-        //Start by initializing the map
+        /*//Start by initializing the map
         var client = new XMLHttpRequest();
         var obj = {};
         client.open('GET', "scripts/controllers/loftmyndir.js");
@@ -47,7 +60,7 @@ angular.module('atApp')
             document.getElementById("mapSection").contentWindow.postMessage(obj, "*");
           }
         }
-        client.send();
+        client.send();*/
 
 
         if(!$scope.authentication)
@@ -100,7 +113,7 @@ angular.module('atApp')
           });
         }
 
-      };
+      //};
 
 
 
@@ -137,16 +150,78 @@ angular.module('atApp')
 
 
     var setCenterAT = function(lon,lat){
-      var obj2 = {};
+/*      var obj2 = {};
       obj2.funct = "view.setCenter( ol.proj.transform(["+lon+","+lat+"],'EPSG:4326', 'EPSG:3057'));";
-      document.getElementById("mapSection").contentWindow.postMessage(obj2, "*");
+      document.getElementById("mapSection").contentWindow.postMessage(obj2, "*");*/
+        var latitude = parseFloat(lat);
+        var longitude = parseFloat(lon);
+
+        map.setView(new ol.View({
+              center: ol.proj.transform([longitude,latitude],'EPSG:4326', 'EPSG:3857'),
+              zoom: 16
+       }));
     };
 
 
     var updateFeatures = function(vehicleData){
 
+      map.getLayers().forEach(function(layer, i){
+        if(layer.get('name') === 'lllayer')
+        {
+          map.removeLayer('lllayer')
+          layer.getSource().clear();
+        }
+      });
+
+      var lat = parseFloat(vehicleData.latitude);
+      var lon = parseFloat(vehicleData.longitude);
 
       var icon = "blue";
+      var rotate = vehicleData.course;
+
+      if(vehicleData.speed < 1)
+      {
+        icon = "bluestop";
+        rotate = 0;
+      }
+
+      var iconFeatures=[];
+
+      var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.transform([lon,lat], 'EPSG:4326',     
+        'EPSG:3857')),
+        name: 'Null Island',
+        population: 4000,
+        rainfall: 500
+      });
+
+      iconFeatures.push(iconFeature);
+
+      var vectorSource = new ol.source.Vector({
+        features: iconFeatures //add an array of features
+      });
+
+      var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+          anchor: [0.5, 0.5],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          opacity: 0.75,
+          src: 'http://m.at.is/images/' + icon + '.png',
+          rotation: rotate * Math.PI / 180
+        }))
+      });
+      
+      var vectorLayer = new ol.layer.Vector({
+        name: "lllayer",
+        source: vectorSource,
+        style: iconStyle
+      });
+      
+      map.removeLayer(vectorLayer);
+      map.addLayer(vectorLayer);
+
+/*      var icon = "blue";
       var rotate = vehicleData.course;
 
       if(vehicleData.speed < 1)
@@ -179,7 +254,7 @@ angular.module('atApp')
 
       var obj = {};
       obj.funct = "window.updateData(" + JSON.stringify(geojsonObject) + ");";
-      document.getElementById("mapSection").contentWindow.postMessage(obj, "*");
+      document.getElementById("mapSection").contentWindow.postMessage(obj, "*");*/
 
       /*var obj = {};
       obj.funct = "var geoJSONSrc = new ol.source.GeoJSON({object:" + JSON.stringify(geojsonObject) + ",projection: 'EPSG:3057'});" +

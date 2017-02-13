@@ -16,13 +16,15 @@ angular.module('atApp')
         $scope.trips = result.data;
       });
 
+      var maps = [];
+
 
       $scope.getPath = function(trip,index){
 
         $interval(function(){
 
             //Start by initializing the map
-            var client = new XMLHttpRequest();
+            /*var client = new XMLHttpRequest();
             var obj = {};
             client.open('GET', "scripts/controllers/loftmyndir.js");
             client.onreadystatechange = function () {
@@ -31,7 +33,23 @@ angular.module('atApp')
                 document.getElementById("mapSection" + index).contentWindow.postMessage(obj, "*");
               }
             }
-            client.send();
+            client.send();*/
+
+            //Start by initializing the map
+            var map = new ol.Map({
+              target: 'mapSection' + index,
+              layers: [
+                  new ol.layer.Tile({
+                      source: new ol.source.OSM()
+                  })
+              ],
+              view: new ol.View({
+                  center: ol.proj.transform([-19.507084,64.776466],'EPSG:4326', 'EPSG:3857'),
+                  zoom: 6
+              })
+            });
+
+            maps.push(map);
 
 
             vehicleService.getVehiclePath($routeParams.carLicence, trip.tripBeginsDate, trip.tripEndsDate).then(function (result) {
@@ -55,15 +73,95 @@ angular.module('atApp')
 
     /*MAPS STARTS*/
     var setCenterAT = function(lon,lat,index){
-      var obj2 = {};
+/*      var obj2 = {};
       obj2.funct = "view.setCenter( ol.proj.transform(["+lon+","+lat+"],'EPSG:4326', 'EPSG:3057'));";
-      document.getElementById("mapSection" + index).contentWindow.postMessage(obj2, "*");
+      document.getElementById("mapSection" + index).contentWindow.postMessage(obj2, "*");*/
+      var latitude = parseFloat(lat);
+      var longitude = parseFloat(lon);
+
+      maps[index].setView(new ol.View({
+            center: ol.proj.transform([longitude,latitude],'EPSG:4326', 'EPSG:3857'),
+            zoom: 16
+      }));
     };
 
 
     var updateFeatures = function(vehicleData,index){
 
-      var geojsonObject = {
+      vehicleData.forEach(function(item)
+      {
+
+      var sp = Number(item.speed);
+      var stp = Number(item.streetSpeed);
+      var stpMAX = stp + 7;
+
+      var icon = "blue";
+
+      var ev = "Ekkert";
+
+      if(item.eventID != null)
+      {
+         icon = "yellow";
+      }
+
+      if(sp > stpMAX)
+      {
+        icon = "red";
+      }
+
+      if(sp === 0)
+      {
+        icon = "bluestop";
+      }
+
+      var lat = parseFloat(item.latitude.replace(",","."));
+      var lon = parseFloat(item.longitude.replace(",","."));
+
+      if(vehicleData.speed < 1)
+      {
+        icon = "bluestop";
+        rotate = 0;
+      }
+
+      var iconFeatures=[];
+
+      var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.transform([lon,lat], 'EPSG:4326',     
+        'EPSG:3857')),
+        name: 'Null Island',
+        population: 4000,
+        rainfall: 500
+      });
+
+      iconFeatures.push(iconFeature);
+
+      var vectorSource = new ol.source.Vector({
+        features: iconFeatures //add an array of features
+      });
+
+      var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+          anchor: [0.5, 0.5],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          opacity: 0.75,
+          src: 'http://m.at.is/images/' + icon + '.png',
+          rotation: item.direction * Math.PI / 180
+        }))
+      });
+
+
+      var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: iconStyle
+      });
+      
+
+      maps[index].addLayer(vectorLayer);
+
+      });
+
+/*      var geojsonObject = {
         'type': 'FeatureCollection',
         'crs': {
           'type': 'name',
@@ -141,7 +239,7 @@ angular.module('atApp')
 
       var obj = {};
       obj.funct = "window.updateData(" + JSON.stringify(geojsonObject) + ");";
-      document.getElementById("mapSection" + index).contentWindow.postMessage(obj, "*");
+      document.getElementById("mapSection" + index).contentWindow.postMessage(obj, "*");*/
 
 
       /*var obj = {};
