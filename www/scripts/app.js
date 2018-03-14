@@ -78,7 +78,7 @@ app.config(['$httpProvider', function($httpProvider) {
 
 app.constant('ngAuthSettings', {
   //apiServiceBaseUri: 'https://api.at.is/',
-  apiServiceBaseUri: 'http://rest.at.is/',
+  apiServiceBaseUri: 'https://rest.at.is/',
   //apiServiceBaseUri: 'http://staging.at.is:89/',
   //apiServiceBaseUri: 'http://localhost:51269/',
   clientId: 'AT'

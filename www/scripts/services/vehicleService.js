@@ -22,7 +22,7 @@ app.factory('vehicleService', ['$http','ngAuthSettings', function ($http,ngAuthS
   var _getTrips = function(carLicence){
     var data = carLicence;
 
-    return $http.get(serviceBase + 'api/vehicles/trips/' + data + '/7/').then(function(results){
+    return $http.get(serviceBase + 'api/vehicles/tripsBASE/' + data + '/7/').then(function(results){
       return results;
     });
   };

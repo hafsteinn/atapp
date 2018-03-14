@@ -122,6 +122,8 @@ angular.module('atApp')
 
     $scope.dropdownChange = function(vehicleID,ind){
 
+      $(".dropdown-menu").dropdown("toggle");
+
       $scope.currentInDropdown = $scope.vehicleList[ind].carLicence + " - " + $scope.vehicleList[ind].vehicleType + " - " + $scope.vehicleList[ind].vehicleSubType;
 
       $scope.currentCarLicence = $scope.vehicleList[ind].carLicence;

@@ -5,21 +5,23 @@
 
 
     <div class="row">
+
       <!--DROPDOWN-->
       <div class="col-xs-12">
         <div class="dropdown">
-          <button class="btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; margin-left:5%;" >
+          <button class="btn btn-default" type="button" id="dropdownMenu1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 90%; margin-left:5%;" >
             <span>{{currentInDropdown}}</span>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 90%; margin-left:5%;">
             <!--ng-repeat hérna-->
-            <li ng-repeat="vehicle in vehicleList" data-ng-model="currentVehicle" >
-              <a data-toggle="collapse" data-target=".navbar-collapse.in" href="#one" data-ng-click="dropdownChange(vehicle.carID,$index);$this.close();">{{vehicle.carLicence}} - {{vehicle.vehicleType}} {{vehicle.vehicleSubType}}</a>
+            <li ng-repeat="vehicle in vehicleList" data-ng-model="currentVehicle" data-ng-click="!this.navOpen;dropdownChange(vehicle.carID,$index,$event);">
+              <a data-toggle="collapse" data-target=".navbar-collapse.in" href="#one" >{{vehicle.carLicence}} - {{vehicle.vehicleType}} {{vehicle.vehicleSubType}}</a>
             </li>
           </ul>
         </div>
       </div>
+
       <div class="row">
 
         <!--INFO-->
